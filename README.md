@@ -381,7 +381,7 @@ total). **Linting — Clippy**; **type checking — `tsc`**.
 shortcuts and an uninstaller. *Why:* no admin rights needed; standard Windows
 experience. Not code-signed in the beta.
 
-**Version control — Git + GitHub (private repo).**
+**Version control — Git + GitHub (public repo).**
 
 Medical logic is **pure functions** (data in, result out): the same rules run
 offline on the astronaut's computer and are easy to test.
