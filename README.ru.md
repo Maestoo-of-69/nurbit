@@ -17,7 +17,7 @@ Human Research Program, работает **без связи** и отправл
 
 **Вариант А — просто пользоваться (инструменты разработчика не нужны).**
 1. Откройте **[Releases → Nurbit 0.1.0 beta](https://github.com/Maestoo-of-69/nurbit/releases/latest)**
-   (нужен доступ к этому приватному репозиторию) и скачайте `Nurbit_0.1.0_x64-setup.exe`.
+   и скачайте `Nurbit_0.1.0_x64-setup.exe`.
 2. Запустите двойным кликом. Если Windows предупредит о неизвестном приложении
    (у него нет цифровой подписи), нажмите **Подробнее → Выполнить в любом случае**.
    Установка только для вашего пользователя, без прав администратора.
@@ -31,7 +31,7 @@ Human Research Program, работает **без связи** и отправл
    - Visual Studio Build Tools с набором «Разработка классических приложений на C++» — https://visualstudio.microsoft.com/visual-cpp-build-tools/
    - Rust через rustup (выбрать MSVC) — https://rustup.rs
    - Node.js 24 LTS — https://nodejs.org
-2. **Получить доступ и скачать** (репозиторий приватный — попросите доступ у владельца):
+2. **Скачать исходники:**
    ```bash
    gh auth login                                   # или ваши учётные данные Git
    git clone https://github.com/Maestoo-of-69/nurbit.git

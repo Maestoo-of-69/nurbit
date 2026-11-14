@@ -18,7 +18,7 @@ ground medical team when a link is available.
 
 **Option A — just use the app (no programming tools needed).**
 1. Open **[Releases → Nurbit 0.1.0 beta](https://github.com/Maestoo-of-69/nurbit/releases/latest)**
-   (you need access to this private repository) and download `Nurbit_0.1.0_x64-setup.exe`.
+   and download `Nurbit_0.1.0_x64-setup.exe`.
 2. Double-click it. If Windows warns that the app is unrecognized (it is not
    code-signed), click **More info → Run anyway**. It installs for your user only, no admin rights.
 3. Open **Nurbit** from the Start menu or the desktop shortcut and pick a profile.
@@ -31,7 +31,7 @@ To update: install the newer release over the old one. To remove: *Settings → 
    - Visual Studio Build Tools with the "Desktop development with C++" workload — https://visualstudio.microsoft.com/visual-cpp-build-tools/
    - Rust via rustup (choose the MSVC toolchain) — https://rustup.rs
    - Node.js 24 LTS — https://nodejs.org
-2. **Get access and download** (the repository is private, ask the owner for access):
+2. **Download the source:**
    ```bash
    gh auth login                                   # or use your Git credentials
    git clone https://github.com/Maestoo-of-69/nurbit.git
