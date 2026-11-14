@@ -255,15 +255,94 @@ knowledge-base/       assistant excerpts (JSON)
 docs/                 specification, architecture, plan, feasibility, references, demo
 ```
 
-| Technology | Why |
-|------------|-----|
-| Rust | medical logic, storage, sync, server; strict types |
-| Tauri 2 | real desktop window and installer, small size, permission allow-list |
-| React + TypeScript + Vite | screens and forms only; no medical rules in TypeScript |
-| SQLite + SQLx | offline local database with migrations; PostgreSQL possible later |
-| Axum + Tokio | sync server HTTP API |
-| reqwest (rustls) | sync client |
-| sha2, uuid v7 | duplicate/conflict detection; offline ids sorted by time |
+### Technology stack — what is used and why
+
+**Core language — Rust (1.97, MSVC).** All medical logic, storage, sync and the
+server. *Why:* memory-safe without a garbage collector, fast, and its strict
+type system catches wrong fields in medical records at compile time. One
+language for the desktop core and the server. *Alternative:* Node/TypeScript
+(the first plan) — easier to start, but more runtime errors.
+
+**Desktop shell — Tauri 2 (2.12).** Window, installer, Rust ↔ UI bridge.
+*Why:* real installable app (not a website), ~4 MB installer because it uses
+the WebView2 engine built into Windows, Rust backend by design, and a
+**capabilities** allow-list (the UI gets only `core:default`; no file, shell or
+network access). *Alternative:* Electron — bundles a whole browser (100+ MB).
+
+**Frontend — React 19 + TypeScript 5.9.** Screens, forms, navigation.
+*Why:* the most established UI library; TypeScript types mirror the Rust
+structs so wrong fields are caught before running. Navigation is plain React
+state (a desktop app has no address bar), so no router library is needed.
+**No medical rules live in TypeScript.**
+
+**Frontend build — Vite 7** (with `@rollup/wasm-node`). Dev server with hot
+reload; builds static files embedded into the `.exe`. *Why:* fast, simple
+config. The WebAssembly build of Rollup is used because Windows Smart App
+Control blocked Rollup's unsigned native module on the development PC.
+
+**Styling — plain CSS with design tokens** (`tokens.css`). *Why:* every colour,
+size and timing in one place; no CSS framework needed for a small app; colours
+carry meaning (normal / attention / alert / review) and always come with text.
+
+**Charts — hand-written SVG** (`TrendChart.tsx`). *Why:* one small chart type
+(line + baseline band + hover tooltip); avoids a chart library dependency.
+
+**Icons — inline SVG + generated app icon.** The app icon is drawn by a
+standard-library Python script and cut into all sizes by `tauri icon`.
+
+**UI ↔ core communication — Tauri commands (IPC).** The UI calls
+`invoke("save_checkin", …)`; Rust runs it in-process. *Why:* no HTTP, no
+localhost server in the installed app; every command re-validates input and
+checks the user's role.
+
+**Local database — SQLite** (bundled via SQLx). One file in the user's
+app-data folder. *Why:* works fully offline, zero installation, reliable
+transactions (WAL mode). Triggers make medical tables append-only.
+
+**Database access — SQLx 0.8.** *Why:* async (does not block while waiting),
+built-in migrations (`migrations/*.sql`, applied automatically at start), same
+library on desktop and server, supports PostgreSQL later. Queries are plain
+runtime-checked SQL, so builds never need a live database. The 0.8 line was
+chosen over the very new 0.9.
+
+**Server database — SQLite for the beta.** *Why:* one file, one command to run
+the demo. *Trade-off:* one writer at a time; PostgreSQL is the planned path for
+real multi-user use (SQL kept portable).
+
+**Server framework — Axum 0.8 + Tokio.** HTTP API for sync and specialist
+reads. *Why:* mainstream Rust web framework from the Tokio team, small and
+easy to test (tests send requests through the router in memory with `tower`).
+
+**HTTP client — reqwest 0.12 with rustls.** Desktop → server sync. *Why:*
+standard Rust client; rustls is TLS written in Rust (no OpenSSL), ready for HTTPS.
+
+**Serialization — serde + serde_json.** Rust structs ↔ JSON for commands, sync
+and the knowledge base. *Why:* the standard, derived automatically, no hand
+parsing.
+
+**Record ids — UUID v7.** *Why:* created on the device even offline, unique
+without a server, and sorted by creation time.
+
+**Content hashes — SHA-256 (sha2).** *Why:* detects duplicates (same id, same
+hash) and conflicts (same id, different hash) during sync without comparing
+whole records.
+
+**Errors — thiserror.** *Why:* readable error types; the UI shows a clear
+message instead of crashing.
+
+**Assistant knowledge base — JSON + keyword retrieval.** 14 source-checked
+excerpts embedded at compile time. *Why:* works offline and only repeats
+verified sources; no language model, so no invented medical text.
+
+**Testing — `cargo test` (Rust built-in) + Tokio test runtime.** Unit tests,
+in-memory database tests, server HTTP tests and demo-scenario tests (93 in
+total). **Linting — Clippy**; **type checking — `tsc`**.
+
+**Packaging — NSIS via Tauri bundler.** Per-user Windows installer with
+shortcuts and an uninstaller. *Why:* no admin rights needed; standard Windows
+experience. Not code-signed in the beta.
+
+**Version control — Git + GitHub (private repo).**
 
 Medical logic is **pure functions** (data in, result out): the same rules run
 offline on the astronaut's computer and are easy to test.
