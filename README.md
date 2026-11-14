@@ -14,6 +14,41 @@ ground medical team when a link is available.
 > and medical records are **synthetic**. The software never diagnoses, never
 > prescribes, and never declares anyone unfit for duty.
 
+## Getting started: download and run (Windows)
+
+**Option A — just use the app.** Get `Nurbit_0.1.0_x64-setup.exe` from the
+project owner (or build it with Option B, step 6), double-click it, then open
+**Nurbit** from the Start menu. Nothing else is needed: WebView2 is already part
+of Windows 10/11.
+
+**Option B — download the source and run it.**
+1. **Install the tools (once):**
+   - Git — https://git-scm.com/download/win
+   - Visual Studio Build Tools with the "Desktop development with C++" workload — https://visualstudio.microsoft.com/visual-cpp-build-tools/
+   - Rust via rustup (choose the MSVC toolchain) — https://rustup.rs
+   - Node.js 24 LTS — https://nodejs.org
+2. **Get access and download** (the repository is private, ask the owner for access):
+   ```bash
+   gh auth login                                   # or use your Git credentials
+   git clone https://github.com/Maestoo-of-69/nurbit.git
+   cd nurbit
+   ```
+3. **Check that everything builds:** `cargo test --workspace` (first build takes a few minutes).
+4. **Install the UI dependencies (once):** `cd apps/desktop` then `npm install`.
+5. **Run the app:** `npm run tauri dev` (inside `apps/desktop`). The Nurbit window opens; pick a profile.
+6. **Build your own installer (optional):** `npm run tauri build` → `target/release/bundle/nsis/Nurbit_0.1.0_x64-setup.exe`.
+7. **Run the sync server (optional, second terminal, repo root):**
+   ```bash
+   $env:NURBIT_SYNC_TOKEN = "<your own secret, 16+ characters>"
+   cargo run -p nurbit-server
+   ```
+   Then in the app open **Sync**, enter `http://127.0.0.1:8787` and the same token, **Save settings**, **Sync now**.
+
+**If something fails:** "an Application Control policy has blocked this file" means
+Windows Smart App Control blocks freshly compiled programs (see
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) §9); a Tauri version-mismatch error
+means the npm and Rust Tauri versions differ — run `npm install` and `cargo update -p tauri`.
+
 ## Contents
 1. [Quick start](#1-quick-start)
 2. [Users and profiles](#2-users-and-profiles)
