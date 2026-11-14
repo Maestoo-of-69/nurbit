@@ -1,0 +1,40 @@
+# Cargo workspace: several Rust packages ("crates") built and tested together.
+# One shared Cargo.lock and one target/ folder for all of them.
+[workspace]
+resolver = "3"
+members = [
+    "crates/shared",
+    "crates/medical-core",
+    "crates/local-store",
+    "apps/desktop/src-tauri",
+    "apps/server",
+]
+
+# Values every member crate inherits with `x.workspace = true`.
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+# The toolchain the project is built and tested with (Tauri 2.12 needs a recent Rust).
+rust-version = "1.97"
+publish = false
+
+# One place to choose dependency versions; members opt in by name.
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+uuid = { version = "1", features = ["v7", "serde"] }
+# 0.8 line: mature and well documented (0.9.0 was released very recently).
+sqlx = { version = "0.8.6", default-features = false, features = ["runtime-tokio", "sqlite", "migrate", "macros"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
+# Server (stage 10). Mature lines chosen over the newest releases.
+axum = "0.8"
+tower = { version = "0.5", features = ["util"] }
+# HTTP client in the desktop app; rustls = TLS implemented in Rust (no OpenSSL).
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+# SHA-256 content hash for sync duplicate/conflict detection.
+sha2 = "0.10"
+
+nurbit-shared = { path = "crates/shared" }
+nurbit-medical-core = { path = "crates/medical-core" }
+nurbit-local-store = { path = "crates/local-store" }

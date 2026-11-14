@@ -1,0 +1,18 @@
+[package]
+name = "nurbit-server"
+description = "Medical server: receives synchronized records and serves them to the ground medical team."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+nurbit-shared.workspace = true
+axum.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sqlx.workspace = true
+tokio.workspace = true
+
+[dev-dependencies]
+tower.workspace = true

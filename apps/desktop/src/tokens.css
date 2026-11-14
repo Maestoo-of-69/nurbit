@@ -1,0 +1,66 @@
+/* Design tokens: every colour, size and timing used by the app, in one place.
+   Direction: calm clinical instrument. Neutral surfaces, deep navy chrome,
+   one blue accent for actions, and colours that carry monitoring meaning. */
+:root {
+  /* Surfaces */
+  --color-bg: #f3f5f8;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #eef1f5;
+  --color-border: #dfe4ea;
+  --color-chrome: #0f2235;
+  --color-chrome-hover: #19324a;
+  --color-chrome-active: #22415f;
+  --color-chrome-text: #c9d5e1;
+  --color-chrome-muted: #7f93a8;
+
+  /* Text */
+  --color-text: #17222d;
+  --color-text-muted: #5b6876;
+  --color-text-faint: #8a96a3;
+
+  /* Action */
+  --color-accent: #1f6feb;
+  --color-accent-hover: #1a5fcc;
+  --color-focus: #4c9aff;
+
+  /* Monitoring meaning (always shown together with text) */
+  --color-normal: #1e7a46;
+  --color-normal-bg: #e3f4ea;
+  --color-attention: #8a5a00;
+  --color-attention-bg: #fff1d1;
+  --color-alert: #b42318;
+  --color-alert-bg: #fde7e5;
+  --color-review: #5b3fb8;
+  --color-review-bg: #ece7fb;
+  --color-inactive: #5b6876;
+  --color-inactive-bg: #edf0f3;
+
+  /* Notice banner */
+  --color-notice-bg: #fff6d6;
+  --color-notice-text: #6b5300;
+
+  /* Type: the Windows system font, so the app feels native */
+  --font-ui: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, monospace;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-display: 30px;
+
+  /* Space, shape, motion */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-panel: 0 1px 2px rgb(15 34 53 / 6%), 0 2px 8px rgb(15 34 53 / 4%);
+  --duration-fast: 120ms;
+  --sidebar-width: 236px;
+}

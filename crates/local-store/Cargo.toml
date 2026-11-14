@@ -1,0 +1,17 @@
+[package]
+name = "nurbit-local-store"
+description = "Local SQLite storage for the desktop app: migrations, repositories, sync outbox."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+nurbit-shared.workspace = true
+nurbit-medical-core.workspace = true
+serde.workspace = true
+sqlx.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+tokio.workspace = true

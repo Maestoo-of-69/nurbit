@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Minimal permissions for the main window. No file system, shell or HTTP access from the UI; all of that goes through Nurbit's own Rust commands.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}
