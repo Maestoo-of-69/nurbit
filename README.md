@@ -16,10 +16,14 @@ ground medical team when a link is available.
 
 ## Getting started: download and run (Windows)
 
-**Option A — just use the app.** Get `Nurbit_0.1.0_x64-setup.exe` from the
-project owner (or build it with Option B, step 6), double-click it, then open
-**Nurbit** from the Start menu. Nothing else is needed: WebView2 is already part
-of Windows 10/11.
+**Option A — just use the app (no programming tools needed).**
+1. Open **[Releases → Nurbit 0.1.0 beta](https://github.com/Maestoo-of-69/nurbit/releases/latest)**
+   (you need access to this private repository) and download `Nurbit_0.1.0_x64-setup.exe`.
+2. Double-click it. If Windows warns that the app is unrecognized (it is not
+   code-signed), click **More info → Run anyway**. It installs for your user only, no admin rights.
+3. Open **Nurbit** from the Start menu or the desktop shortcut and pick a profile.
+
+To update: install the newer release over the old one. To remove: *Settings → Apps → Nurbit → Uninstall*.
 
 **Option B — download the source and run it.**
 1. **Install the tools (once):**
